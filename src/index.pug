@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+        link(rel="stylesheet", href="style.css")
+        script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=doxy")
+        script(src="rikaaa-img-extra.js")
+        script(src="app.js")
+
+    body
+        div.wp
+            div.bg
+            header
+                h2 rikaaa.org
+            article
+                section
+                    h1 &lt;rikaaa-img-extra&gt;
+                    p Custom element combining Lazy Load and svg filter.
+                    p Filter is also possible with IE11.
+                section.maindemo
+                    div.list
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220")
+                            p original
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" blur="5")
+                            p blur
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" contrast="2")
+                            p contrast
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" brightness="10")
+                            p brightness
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" saturate="3")
+                            p saturate
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" hue-rotate="180")
+                            p hue-rotate
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" invert="1")
+                            p invert
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" opacity="0.5")
+                            p opacity
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" grayscale="1")
+                            p grayscale
+                        div.item
+                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" sepia="1")
+                            p sepia
+                    div.sliders_demo
+                        rikaaa-img-extra(data-src="images/starry_night.jpg" data-alt="lazytest" size="752x600" id="s")
+                        div.sliders
+                            div
+                                span blur
+                                input(id="blur" min="0.0" max="100.0" step="0.1" type="range" value="0.0")
+                                output(id="blur-o") 0
+                            div
+                                span contrast
+                                input(id="contrast" min="1.0" max="10.0" step="0.1" type="range" value="1.0")
+                                output(id="contrast-o") 1
+                            div
+                                span brightness
+                                input(id="brightness" min="0.0" max="10.0" step="0.01" type="range" value="1.0")
+                                output(id="brightness-o") 1
+                            div
+                                span saturate
+                                input(id="saturate" min="0.0" max="2.0" step="0.001" type="range" value="1.0")
+                                output(id="saturate-o") 1
+                            div
+                                span hue-rotate
+                                input(id="hue-rotate" min="0.0" max="360.0" step="0.1" type="range" value="0.0")
+                                output(id="hue-rotate-o") 0
+                            div
+                                span invert
+                                input(id="invert" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                output(id="invert-o") 0
+                            div
+                                span opacity
+                                input(id="opacity" min="0.0" max="1.0" step="0.01" type="range" value="1.0")
+                                output(id="opacity-o") 1
+                            div
+                                span grayscale
+                                input(id="grayscale" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                output(id="grayscale-o") 0
+                            div
+                                span sepia
+                                input(id="sepia" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                output(id="sepia-o") 0
+                section
+                    p.title Installation
+                    pre.prettyprint.lang-html
+                        = '<script src="rikaaa-img-extra.js"></script>'
+                    pre.prettyprint.lang-js
+                        = 'import "rikaaa-img-extra.js";'
+                    p If you want to use browser that does not support webcomponent.
+                    pre.prettyprint.lang-js
+                        ='import "@webcomponents/webcomponentsjs/webcomponents-bundle";'
+                        br
+                        ='import "@webcomponents/shadycss/scoping-shim.min";'
+                    pre.prettyprint.lang-html
+                        ='<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>'
+                        br
+                        ='<script src="node_modules/@webcomponents/shadycss/scoping-shim.min.js"></script>'
+                section 
+                    p.title Usage
+                    p HTML
+                    pre.prettyprint.lang-html
+                        ='<rikaaa-img-extra data-src="your image path" data-alt="your image alt text" size="000x000"></rikaaa-img-extra>'
+                section 
+                    p.title Attributes
+                    dl.attributes
+                        dt.require 
+                            span data-src ="string"
+                        dd Image path.
+                        dt.require 
+                            span size = "000x000"
+                        dd
+                            p Image size.
+                            p For example, If the size of the image you use is width:640px,height:480px,
+                            p attribute value is `size = "640x480"`
+                        dt 
+                            span data-alt = "string"
+                        dd Alt text.
+                        dt 
+                            span offset = "integer"
+                        dd 
+                            p Margin from element to viewport.
+                            p When this value is 0, the image is read when the head of the element overlaps the viewport.
+                            p defult is 100.
+                        dt 
+                            span blur = "float"
+                        dd Blur condition value.The minimum value is 0.
+                        dt 
+                            span contrast = "float"
+                        dd Contrast condition value.The minimum value is 1.
+                        dt 
+                            span brightness = "float"
+                        dd Brightness condition value.The minimum value is 0.
+                        dt 
+                            span saturate = "float"
+                        dd Saturate condition value.The minimum value is 0.
+                        dt 
+                            span hue-rotate = "float"
+                        dd Hue-rotate condition value.The minimum value is 0. The maximum value is 360.
+                        dt 
+                            span invert = "float"
+                        dd Invert condition value.The minimum value is 0. The maximum value is 1.
+                        dt 
+                            span opacity = "float"
+                        dd Opacity condition value.The minimum value is 0. The maximum value is 1.
+                        dt 
+                            span grayscale = "float"
+                        dd Grayscale condition value.The minimum value is 0. The maximum value is 1.
+                        dt 
+                            span sepia = "float"
+                        dd Sepia condition value.The minimum value is 0. The maximum value is 1.
+                    
