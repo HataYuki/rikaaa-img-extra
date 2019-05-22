@@ -1,5 +1,5 @@
 # `<rikaaa-img-extra>`
-Custom element combining Lazy Load and svg filter.  
+Custom element combining lazy load and svg filter.  
 Filter is also possible with IE11.
 
 ## Installation
@@ -28,7 +28,7 @@ import "@webcomponents/shadycss/scoping-shim.min";
 | Attribute | Require | Description |
 ----|----|----
 | data-src ="string" | Require | Image path. |
-| size = "000x000" | Require | Image size. For example, If the size of the image you use is width:640px,height:480px, attribute value is size = "640x480"|
+| size = "000x000" | Require | Image size. For example, If the size of the image you use is width:640px,height:480px, attribute value is 「size = "640x480"」|
 | data-alt = "string" | | Alt text. |
 | offset = "integer" | | Margin from element to viewport. When this value is 0, the image is read when the head of the element overlaps the viewport. defult is 100. |
 | blur = "float" | | Blur condition value.The minimum value is 0. |
