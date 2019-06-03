@@ -1,6 +1,4 @@
-dist/
-node_modules/
+/node_modules
+.DS_Store
+*.log
 package-lock.json
-lib/
-spec/
-karma-debughtml-refresh.js
