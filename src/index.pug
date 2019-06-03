@@ -18,8 +18,7 @@ html(lang="en")
             article
                 section
                     h1 &lt;rikaaa-img-extra&gt;
-                    p Custom element combining Lazy Load and svg filter.
-                    p Filter is also possible with IE11.
+                    p The Custom element to impliment lazy load and image filtering.
                 section.maindemo
                     div.list
                         div.item
@@ -116,47 +115,46 @@ html(lang="en")
                     dl.attributes
                         dt.require 
                             span data-src ="string"
-                        dd Image path.
+                        dd The parameter to set image path by text.
                         dt.require 
                             span size = "000x000"
                         dd
-                            p Image size.
-                            p For example, If the size of the image you use is width:640px,height:480px,
-                            p attribute value is `size = "640x480"`
+                            p The parameter to set the size of image by text. 
+                            p For example, indication of '640x480' in case of width 640 pixel and height 480 pixel.
                         dt 
                             span data-alt = "string"
-                        dd Alt text.
+                        dd The parameter to set 'alt' of image by text.
                         dt 
                             span offset = "integer"
                         dd 
-                            p Margin from element to viewport.
-                            p When this value is 0, the image is read when the head of the element overlaps the viewport.
-                            p defult is 100.
+                            p The parameter to set the margin between bottom end of viewport and The Custom element.
+                            p In case, the margin of actual browser display shows smaller than the margin specified the image will be loaded. The unit is pixel. 
+                            p default value is 100.
                         dt 
                             span blur = "float"
-                        dd Blur condition value.The minimum value is 0.
+                        dd The parameter to set the condition of blur by floating decimal point.
                         dt 
                             span contrast = "float"
-                        dd Contrast condition value.The minimum value is 1.
+                        dd The parameter to set the condition of contrast by floating decimal point. The minimum parameter is 1.0.
                         dt 
                             span brightness = "float"
-                        dd Brightness condition value.The minimum value is 0.
+                        dd The parameter to set the condition of brightness by floating decimal point. The minimum parameter is 0.
                         dt 
                             span saturate = "float"
-                        dd Saturate condition value.The minimum value is 0.
+                        dd The parameter to set the condition of saturate by floating decimal point. The minimum parameter is 0.
                         dt 
                             span hue-rotate = "float"
-                        dd Hue-rotate condition value.The minimum value is 0. The maximum value is 360.
+                        dd The parameter to set the condition of hue rotattion by floating decimal point. The unit is degree. The range is 0 to 360.
                         dt 
                             span invert = "float"
-                        dd Invert condition value.The minimum value is 0. The maximum value is 1.
+                        dd The parameter to set the condition of invert by floating decimal point. The range is 0 to 1.0.
                         dt 
                             span opacity = "float"
-                        dd Opacity condition value.The minimum value is 0. The maximum value is 1.
+                        dd The parameter to set the condition of opacity by floating decimal point. The range is 0 to 1.0.
                         dt 
                             span grayscale = "float"
-                        dd Grayscale condition value.The minimum value is 0. The maximum value is 1.
+                        dd The parameter to set the condition of grayscale by floating decimal point. The range is 0 to 1.0.
                         dt 
                             span sepia = "float"
-                        dd Sepia condition value.The minimum value is 0. The maximum value is 1.
+                        dd The parameter to set the condition of sepia by floating decimal point. The maximum parameter is 1.0.
                     
