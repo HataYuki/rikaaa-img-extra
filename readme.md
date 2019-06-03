@@ -1,6 +1,5 @@
 # `<rikaaa-img-extra>`
-Custom element combining lazy load and svg filter.  
-Filter is also possible with IE11.
+The Custom element to impliment lazy load and image filtering.
 
 ## Installation
 ```bash
@@ -27,19 +26,19 @@ import "@webcomponents/shadycss/scoping-shim.min";
 ## Attributes
 | Attribute | Require | Description |
 ----|----|----
-| data-src ="string" | Require | Image path. |
-| size = "000x000" | Require | Image size. For example, If the size of the image you use is width:640px,height:480px, attribute value is 「size = "640x480"」|
-| data-alt = "string" | | Alt text. |
-| offset = "integer" | | Margin from element to viewport. When this value is 0, the image is read when the head of the element overlaps the viewport. defult is 100. |
-| blur = "float" | | Blur condition value.The minimum value is 0. |
-| contrast = "float" | | Contrast condition value.The minimum value is 1. |
-| brightness = "float" | | Brightness condition value.The minimum value is 0. |
-| saturate = "float" | | Saturate condition value.The minimum value is 0. |
-| hue-rotate = "float" | | Hue-rotate condition value.The minimum value is 0. The maximum value is 360. |
-| invert = "float" | | Invert condition value.The minimum value is 0. The maximum value is 1. |
-| opacity = "float" | | Opacity condition value.The minimum value is 0. The maximum value is 1. |
-| grayscale = "float" | | Grayscale condition value.The minimum value is 0. The maximum value is 1. |
-| sepia = "float" | | Sepia condition value.The minimum value is 0. The maximum value is 1. |
+| data-src ="string" | Require | The parameter to set image path by text. |
+| size = "000x000" | Require | The parameter to set the size of image by text. For example, indication of '640x480' in case of width 640 pixel and height 480 pixel. |
+| data-alt = "string" | | The parameter to set 'alt' of image by text. |
+| offset = "integer" | | The parameter to set the margin between bottom end of viewport and The Custom element. In case, the margin of actual browser display shows smaller than the margin specified the image will be loaded. The unit is pixel. default value is 100.|
+| blur = "float" | | The parameter to set the condition of blur by floating decimal point.|
+| contrast = "float" | | The parameter to set the condition of contrast by floating decimal point. The minimum parameter is 1.0. |
+| brightness = "float" | | The parameter to set the condition of brightness by floating decimal point. The minimum parameter is 0. |
+| saturate = "float" | | The parameter to set the condition of saturate by floating decimal point. The minimum parameter is 0. |
+| hue-rotate = "float" | | The parameter to set the condition of hue rotattion by floating decimal point. The unit is degree. The range is 0 to 360. |
+| invert = "float" | | The parameter to set the condition of invert by floating decimal point. The range is 0 to 1.0. |
+| opacity = "float" | | The parameter to set the condition of opacity by floating decimal point. The range is 0 to 1.0. |
+| grayscale = "float" | | The parameter to set the condition of grayscale by floating decimal point. The range is 0 to 1.0. |
+| sepia = "float" | | The parameter to set the condition of sepia by floating decimal point. The maximum parameter is 1.0. |
 
 ## Browser Support
 - Google Chrome  
