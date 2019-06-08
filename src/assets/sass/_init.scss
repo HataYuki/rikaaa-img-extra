@@ -20,7 +20,6 @@ canvas,img{
     vertical-align: bottom;
 }
 .wp{
-    min-width: 680px;
     @include SingGo("R");
     color:$baseWhite;
 }

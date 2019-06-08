@@ -1,13 +1,11 @@
 import '@webcomponents/webcomponentsjs/webcomponents-bundle';
-import '@webcomponents/shadycss/scoping-shim.min';
 import 'intersection-observer';
 import 'mdn-polyfills/Array.prototype.includes';
 import Onebang from '../assets/js/_Onebang';
-import ready from '../assets/js/_Domready';
 import constrain from '../assets/js/_Constrain';
 import map from '../assets/js/_Map';
 
-const _css = '${{{src/webcomponents/rikaaa-img-extra.scss}}}';
+const _css = '${{{src/webcomponents/webcomponent.scss}}}';
 const _style = `<style>${_css}</style>`;
 const _shadowdomHTML = `
     ${_style}
@@ -44,11 +42,11 @@ const _shadowdomHTML = `
 
 const placeholder = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
-class rikaaaimgextra extends HTMLElement {
+export default class rikaaaimgextra extends HTMLElement {
     constructor() {
         const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const template = document.createElement('template');
-        template.id = 'rikaaaimgextra';        
+        template.id = 'rikaaaimgextra';
         template.innerHTML = _shadowdomHTML;
         const filter = template.content.querySelector('filter');
         const image = template.content.querySelector('image');
@@ -59,7 +57,9 @@ class rikaaaimgextra extends HTMLElement {
 
         if (window.ShadyCSS) ShadyCSS.prepareTemplate(template, 'rikaaa-img-extra');
         if (window.ShadyCSS) ShadyCSS.styleElement(this);
-        this.attachShadow({ mode: 'open'});
+        this.attachShadow({
+            mode: 'open'
+        });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
     connectedCallback() {
@@ -68,7 +68,7 @@ class rikaaaimgextra extends HTMLElement {
         this.src = this.getAttribute('data-src');
         this.alt = this.getAttribute('data-alt');
         this.size = this.getAttribute('size').split('x');
-        this.aspect = this.size.reduce((a, c,i,array) => {
+        this.aspect = this.size.reduce((a, c, i, array) => {
             let result = {};
             const gcd = (w, h) => {
                 if (!h) return w;
@@ -77,8 +77,8 @@ class rikaaaimgextra extends HTMLElement {
             if (i === 0) result.w = c / gcd(array[1], array[0]);
             if (i === 1) result.h = c / gcd(array[1], array[0]);
             return Object.assign(a, result);
-        },{});
-        
+        }, {});
+
         this.wp = this.shadowRoot.querySelector('.rikaaa-img-extra-wp');
         this.placeholder_container = this.shadowRoot.querySelector('.placeholder_container');
         this.spacer = this.shadowRoot.querySelector('.spacer');
@@ -89,19 +89,36 @@ class rikaaaimgextra extends HTMLElement {
         // this.offset = 100;
         if (this.offset === undefined) this.offset = 100;
 
-        this.placeholder();        
+        // const addPlaceholder = () => this.placeholder;
+        // this.placeholder();
+        // const addPlaceholder_onece = () => Onebang(addPlaceholder);
+        // addPlaceholder_onece();
         
+        const placeHolder = () => {
+            this.placeholder();
+        };
+        const addPlaceHolder_onece = Onebang(placeHolder);
+        addPlaceHolder_onece();
+
         // element entry viewport
-        const entry_onebang = Onebang(this.entry);
-        const ovserver = new IntersectionObserver(e => {
-            if (e[0].intersectionRatio !== 0) entry_onebang.bind(this, e)();
+        const entry = () => {
+            this.entry();
+        };
+        const entry_onebang = Onebang(entry);
+        this.ovserver = new IntersectionObserver(e => {
+            if (e[0].intersectionRatio !== 0) entry_onebang();
         }, {
             rootMargin: `${this.offset}px`,
         });
-        ovserver.observe(this);
-        
+        this.ovserver.observe(this);
+
         
 
+    }
+    disconnectedCallback() {
+        this.ovserver.disconnect(this);
+        const child = this.childNodes;
+        if (child) Array.from(child).forEach(e => this.removeChild(e));
     }
     static get observedAttributes() {
         return [
@@ -121,9 +138,9 @@ class rikaaaimgextra extends HTMLElement {
         if (this.filters === undefined) this.filters = [];
         this.svg = this.shadowRoot.querySelector('svg');
         this._filter_op = 1;
-        
+
         this.isSafari = /.*Version.*Safari.*/.test(navigator.userAgent);
-        
+
         if (attr === 'blur') this.blur = newval;
         if (attr === 'contrast') this.contrast = newval;
         if (attr === 'brightness') this.brightness = newval;
@@ -134,11 +151,11 @@ class rikaaaimgextra extends HTMLElement {
         if (attr === 'grayscale') this.grayscale = newval;
         if (attr === 'sepia') this.sepia = newval;
         if (attr === 'offset') this.offset = newval;
-        
+
         if (this.isSafari) this.shadowRoot.querySelector('.img_container').style.filter = this.filters.toString().replace(/,/g, ' ');
     }
     arraytomatrixval(matrixarray) {
-        return matrixarray.reduce((acc, val) => acc.concat(val), []).toString().replace(/,/g,' ');
+        return matrixarray.reduce((acc, val) => acc.concat(val), []).toString().replace(/,/g, ' ');
     }
     set blur(n) {
         if (!this.isSafari) this.svg.querySelector('feGaussianBlur').setAttribute('stdDeviation', n);
@@ -159,7 +176,7 @@ class rikaaaimgextra extends HTMLElement {
         } else {
             this.filters[1] = `contrast(${b})`;
         }
-        
+
     }
     set brightness(n) {
         if (!this.isSafari) {
@@ -173,8 +190,8 @@ class rikaaaimgextra extends HTMLElement {
             tg.setAttribute('values', this.arraytomatrixval(matrix));
         } else {
             this.filters[2] = `brightness(${n})`;
-        } 
-        
+        }
+
     }
     set saturate(n) {
         const seed = Math.max(0, n);
@@ -232,7 +249,7 @@ class rikaaaimgextra extends HTMLElement {
         } else {
             this.filters[4] = `hue-rotate(${n}deg)`;
         }
-        
+
     }
     set invert(n) {
         const seed = constrain(n, 0, 1);
@@ -250,7 +267,7 @@ class rikaaaimgextra extends HTMLElement {
         } else {
             this.filters[5] = `invert(${seed})`;
         }
-        
+
     }
     set opacity(n) {
         this._filter_op = constrain(n, 0, 1);
@@ -286,11 +303,11 @@ class rikaaaimgextra extends HTMLElement {
         } else {
             this.filters[6] = `opacity(${this._filter_op})`;
         }
-        
+
     }
     set grayscale(n) {
-        
-        
+
+
         if (!this.isSafari) {
             const seed = 1 - constrain(n, 0, 1);
             const tg = this.svg.getElementById('grayscale');
@@ -347,9 +364,10 @@ class rikaaaimgextra extends HTMLElement {
             const s_seed = constrain(n, 0, 1);
             this.filters[8] = `sepia(${s_seed})`;
         }
-        
+
     }
     placeholder() {
+        
         const imgnode = document.createElement('img');
         imgnode.src = placeholder;
         imgnode.slot = 'placeholder';
@@ -358,23 +376,23 @@ class rikaaaimgextra extends HTMLElement {
             height: '100%',
         })
         Object.assign(this.spacer.style, {
-           paddingBottom: `${this.aspect.h/this.aspect.w*100}%`,
+            paddingBottom: `${this.aspect.h/this.aspect.w*100}%`,
         });
         this.placeholderNode = imgnode;
         this.appendChild(imgnode);
     }
-    entry(e) {
-        this.shadowRoot.removeChild(this.placeholder_container);
-        this.removeChild(this.placeholderNode);
+    entry() {
+        // this.shadowRoot.removeChild(this.placeholder_container);
+        this.placeholder_container.style.display = 'none';
         // create img element
         const imgnode = document.createElement('img');
         this.img = imgnode;
         imgnode.src = this.src;
         imgnode.alt = this.alt;
         Object.assign(imgnode.style, {
-            width: '100%', 
+            width: '100%',
         });
-        
+
         const render = () => {
             if (this.isSafari) {
                 this.appendChild(imgnode);
@@ -388,11 +406,9 @@ class rikaaaimgextra extends HTMLElement {
                 });
             }
         }
-        imgnode.addEventListener('load', render.bind(this));
-        
+        imgnode.addEventListener('load', render);
+        this.dispatchEvent(new CustomEvent('load'));
     }
 }
 
-ready(() => {
-    customElements.define('rikaaa-img-extra', rikaaaimgextra);
-});
+
