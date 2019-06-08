@@ -1,27 +1,35 @@
 # `<rikaaa-img-extra>`
 The Custom element to impliment lazy load and image filtering.
+![](rikaaa-img-extra.gif)
 
 ## Installation
 ```bash
-#script tag
+#script
+<!-- If you want to use The Custom Element -->
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"></script>
+
 <script src="rikaaa-img-extra.js"></script>
-
-#esm
-import "rikaaa-img-extra.js";
 ```
-If you want to use browser that does not support webcomponent.
-```bash
-#script tag
-<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-<script src="node_modules/@webcomponents/shadycss/scoping-shim.min.js"></script>
 
-#ems
-import "@webcomponents/webcomponentsjs/webcomponents-bundle";
-import "@webcomponents/shadycss/scoping-shim.min";
+```bash
+#esm
+import "rikaaaimgextra" from "rikaaa-img-extra.esm";
+
+customElements.define("rikaaa-img-extra", rikaaaimgextra);
 ```
 ## Usage 
 ```bash
+#HTML
 <rikaaa-img-extra data-src="your image path" data-alt="your image alt text" size="000x000"></rikaaa-img-extra>
+```
+
+```bash
+#Event
+Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function(elem) {
+    elem.addEventListener("load", function() {
+        console.log("loaded");
+    });
+});
 ```
 ## Attributes
 | Attribute | Require | Description |
