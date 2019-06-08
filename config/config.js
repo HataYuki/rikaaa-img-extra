@@ -11,7 +11,7 @@ module.exports = {
     },
     webcomponents: {
         files: 'webcomponents/**/*.js',
-        name:'rikaaa-img-extra',
+        name: 'rikaaa-img-extra',
     },
     karma: {
         frameworks: ['mocha', 'browserify'],

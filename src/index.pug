@@ -6,9 +6,11 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title Document
         link(rel="stylesheet", href="style.css")
-        script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=doxy")
-        script(src="rikaaa-img-extra.js")
         script(src="app.js")
+        script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=doxy")
+        script(src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js")
+        script(src="entryfile.js")
+        
 
     body
         div.wp
@@ -17,7 +19,7 @@ html(lang="en")
                 h2 rikaaa.org
             article
                 section
-                    h1 &lt;rikaaa-img-extra&gt;
+                    h1= '<rikaaa-img-extra>'
                     p The Custom element to impliment lazy load and image filtering.
                 section.maindemo
                     div.list
@@ -92,24 +94,38 @@ html(lang="en")
                                 output(id="sepia-o") 0
                 section
                     p.title Installation
+                    p script
                     pre.prettyprint.lang-html
+                        = '<!-- If you want to use The Custom Element -->'
+                        br
+                        = '<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"></script>'
+                        br
+                        br
                         = '<script src="rikaaa-img-extra.js"></script>'
+                    p esm
                     pre.prettyprint.lang-js
-                        = 'import "rikaaa-img-extra.js";'
-                    p If you want to use browser that does not support webcomponent.
-                    pre.prettyprint.lang-js
-                        ='import "@webcomponents/webcomponentsjs/webcomponents-bundle";'
+                        = 'import "rikaaaimgextra" from "rikaaa-img-extra.esm";'
                         br
-                        ='import "@webcomponents/shadycss/scoping-shim.min";'
-                    pre.prettyprint.lang-html
-                        ='<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>'
                         br
-                        ='<script src="node_modules/@webcomponents/shadycss/scoping-shim.min.js"></script>'
+                        ='customElements.define("rikaaa-img-extra", rikaaaimgextra);'
+                    
                 section 
                     p.title Usage
                     p HTML
                     pre.prettyprint.lang-html
                         ='<rikaaa-img-extra data-src="your image path" data-alt="your image alt text" size="000x000"></rikaaa-img-extra>'
+                    p Event
+                    pre.prettyprint.lang-ja
+                        ='Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function(elem) {'
+                        br
+                        ='    elem.addEventListener("load", function() {'
+                        br
+                        ='        console.log("loaded");'
+                        br
+                        ='    });'
+                        br
+                        ='});'
+                        br
                 section 
                     p.title Attributes
                     dl.attributes
