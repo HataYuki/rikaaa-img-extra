@@ -45,9 +45,9 @@
       });
     });
 
-    Array.from(document.querySelectorAll('rikaaa-img-extra')).forEach(function (elem) {
-      elem.addEventListener('load', function () {
-        console.log('loaded');
+    Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function (elem) {
+      elem.addEventListener("load", function () {
+        console.log("loaded");
       });
     });
   });
