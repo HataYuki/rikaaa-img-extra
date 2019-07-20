@@ -1,9 +1,9 @@
 import '@webcomponents/webcomponentsjs/webcomponents-bundle';
-import 'intersection-observer';
-import 'mdn-polyfills/Array.prototype.includes';
+import rikaaaIntersectionObserver from '../assets/js/rikaaa-IntersectionWatcher';
 import Onebang from '../assets/js/_Onebang';
 import constrain from '../assets/js/_Constrain';
 import map from '../assets/js/_Map';
+import '../assets/js/Array.prototype.includes';
 
 const _css = '${{{src/webcomponents/webcomponent.scss}}}';
 const _style = `<style>${_css}</style>`;
@@ -86,13 +86,14 @@ export default class rikaaaimgextra extends HTMLElement {
         this.svgImage = this.shadowRoot.querySelector('image');
         this.svgspacer = this.shadowRoot.querySelector('.svg_spacer');
 
-        // this.offset = 100;
-        if (this.offset === undefined) this.offset = 100;
+        if (!window.IntersectionObserver && !window.WcRikaaaIntersectionObserver) {
+             Object.defineProperty(window, 'WcRikaaaIntersectionObserver', {
+                 value: rikaaaIntersectionObserver
+             });
+         }
+        const intersectionobserver = window.IntersectionObserver || window.WcRikaaaIntersectionObserver;
 
-        // const addPlaceholder = () => this.placeholder;
-        // this.placeholder();
-        // const addPlaceholder_onece = () => Onebang(addPlaceholder);
-        // addPlaceholder_onece();
+        if (this.offset === undefined) this.offset = 100;
         
         const placeHolder = () => {
             this.placeholder();
@@ -105,10 +106,10 @@ export default class rikaaaimgextra extends HTMLElement {
             this.entry();
         };
         const entry_onebang = Onebang(entry);
-        this.ovserver = new IntersectionObserver(e => {
-            if (e[0].intersectionRatio !== 0) entry_onebang();
+        this.ovserver = new intersectionobserver(e => {
+            if (e[0].isIntersecting) entry_onebang();
         }, {
-            rootMargin: `${this.offset}px`,
+            rootMargin: `0px 0px ${this.offset}px 0px`,
         });
         this.ovserver.observe(this);
 
@@ -382,8 +383,6 @@ export default class rikaaaimgextra extends HTMLElement {
         this.appendChild(imgnode);
     }
     entry() {
-        // this.shadowRoot.removeChild(this.placeholder_container);
-        this.placeholder_container.style.display = 'none';
         // create img element
         const imgnode = document.createElement('img');
         this.img = imgnode;
@@ -394,6 +393,7 @@ export default class rikaaaimgextra extends HTMLElement {
         });
 
         const render = () => {
+            this.placeholder_container.style.display = 'none';
             if (this.isSafari) {
                 this.appendChild(imgnode);
             } else {
