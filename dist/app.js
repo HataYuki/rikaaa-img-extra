@@ -3,7 +3,7 @@
  * rikaaa-img-extra.js
  *
  * Generated : 2019-08-04
- * Version : 1.0.3
+ * Version : 1.1.0
  * Author : rikaaa.org | Yuki Hata
  * Url : http://rikaaa.org
  *
