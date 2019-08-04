@@ -2,7 +2,7 @@
  * @license
  * rikaaa-img-extra.js
  *
- * Generated : 2019-07-21
+ * Generated : 2019-08-04
  * Version : 1.0.3
  * Author : rikaaa.org | Yuki Hata
  * Url : http://rikaaa.org
@@ -950,6 +950,14 @@
 
       _this.shadowRoot.appendChild(template.content.cloneNode(true));
 
+      if (!window.IntersectionObserver && !window.WcRikaaaIntersectionObserver) {
+        Object.defineProperty(window, 'WcRikaaaIntersectionObserver', {
+          value: rikaaaIntersectionWatcher
+        });
+      }
+
+      _this.intersectionobserver = window.IntersectionObserver || window.WcRikaaaIntersectionObserver;
+      _this.load = Onebang(_this.loadImage.bind(_assertThisInitialized(_this)));
       return _this;
     }
 
@@ -980,45 +988,22 @@
         this.svg = this.shadowRoot.querySelector('svg');
         this.svgImage = this.shadowRoot.querySelector('image');
         this.svgspacer = this.shadowRoot.querySelector('.svg_spacer');
-
-        if (!window.IntersectionObserver && !window.WcRikaaaIntersectionObserver) {
-          Object.defineProperty(window, 'WcRikaaaIntersectionObserver', {
-            value: rikaaaIntersectionWatcher
-          });
-        }
-
-        var intersectionobserver = window.IntersectionObserver || window.WcRikaaaIntersectionObserver;
-        if (this.offset === undefined) this.offset = 100;
+        this.loadTiming = '100px 0px 100px 0px';
 
         var placeHolder = function placeHolder() {
           _this2.placeholder();
         };
 
         var addPlaceHolder_onece = Onebang(placeHolder);
-        addPlaceHolder_onece(); // element entry viewport
-
-        var entry = function entry() {
-          _this2.entry();
-        };
-
-        var entry_onebang = Onebang(entry);
-        this.ovserver = new intersectionobserver(function (e) {
-          if (e[0].isIntersecting) entry_onebang();
-        }, {
-          rootMargin: "0px 0px ".concat(this.offset, "px 0px")
-        });
-        this.ovserver.observe(this);
+        addPlaceHolder_onece();
+        this.prepareloadImage(null, this.loadTiming);
+        this.dispatchEvent(new CustomEvent('load'));
       }
     }, {
       key: "disconnectedCallback",
       value: function disconnectedCallback() {
-        var _this3 = this;
-
-        this.ovserver.disconnect(this);
-        var child = this.childNodes;
-        if (child) Array.from(child).forEach(function (e) {
-          return _this3.removeChild(e);
-        });
+        this.readyLoadImage.unobserve(this);
+        this.loadImage.disconnect();
       }
     }, {
       key: "attributeChangedCallback",
@@ -1036,7 +1021,7 @@
         if (attr === 'opacity') this.opacity = newval;
         if (attr === 'grayscale') this.grayscale = newval;
         if (attr === 'sepia') this.sepia = newval;
-        if (attr === 'offset') this.offset = newval;
+        if (attr === 'loadtiming') this.loadTiming = newval;
         if (this.isSafari) this.shadowRoot.querySelector('.img_container').style.filter = this.filters.toString().replace(/,/g, ' ');
       }
     }, {
@@ -1045,6 +1030,29 @@
         return matrixarray.reduce(function (acc, val) {
           return acc.concat(val);
         }, []).toString().replace(/,/g, ' ');
+      }
+    }, {
+      key: "prepareloadImage",
+      value: function prepareloadImage(root, rootMargin) {
+        var _this3 = this;
+
+        if (this.readyLoadImage) {
+          this.readyLoadImage.unobserve(this);
+          this.readyLoadImage.disconnect();
+        }
+
+        var option = {};
+        if (root) option.root = root;
+        if (rootMargin) option.rootMargin = rootMargin;
+        this.readyLoadImage = new this.intersectionobserver(function (entries) {
+          if (entries[0].isIntersecting) _this3.load();
+        }, option);
+        this.readyLoadImage.observe(this);
+      }
+    }, {
+      key: "setRoot",
+      value: function setRoot(root) {
+        this.prepareloadImage(root, this.loadTiming);
       }
     }, {
       key: "placeholder",
@@ -1063,8 +1071,8 @@
         this.appendChild(imgnode);
       }
     }, {
-      key: "entry",
-      value: function entry() {
+      key: "loadImage",
+      value: function loadImage() {
         var _this4 = this;
 
         // create img element
@@ -1095,7 +1103,7 @@
         };
 
         imgnode.addEventListener('load', render);
-        this.dispatchEvent(new CustomEvent('load'));
+        this.dispatchEvent(new CustomEvent('loadImage'));
       }
     }, {
       key: "blur",
@@ -1267,7 +1275,7 @@
     }], [{
       key: "observedAttributes",
       get: function get() {
-        return ['blur', 'contrast', 'brightness', 'saturate', 'hue-rotate', 'invert', 'opacity', 'grayscale', 'sepia', 'offset'];
+        return ['blur', 'contrast', 'brightness', 'saturate', 'hue-rotate', 'invert', 'opacity', 'grayscale', 'sepia', 'loadtiming'];
       }
     }]);
 

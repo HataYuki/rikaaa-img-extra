@@ -18,153 +18,206 @@ html(lang="en")
             header
                 h2 rikaaa.org
             article
-                section
-                    h1= '<rikaaa-img-extra>'
-                    p The Custom element to impliment lazy load and image filtering.
-                section.maindemo
-                    div.list
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220")
-                            p original
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" blur="5")
-                            p blur
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" contrast="2")
-                            p contrast
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" brightness="10")
-                            p brightness
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" saturate="3")
-                            p saturate
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" hue-rotate="180")
-                            p hue-rotate
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" invert="1")
-                            p invert
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" opacity="0.5")
-                            p opacity
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" grayscale="1")
-                            p grayscale
-                        div.item
-                            rikaaa-img-extra(data-src="images/Lenna.jpg" data-alt="lazytest" size="220x220" sepia="1")
-                            p sepia
-                    div.sliders_demo
-                        rikaaa-img-extra(data-src="images/starry_night.jpg" data-alt="lazytest" size="752x600" id="s")
-                        div.sliders
-                            div
-                                span blur
-                                input(id="blur" min="0.0" max="100.0" step="0.1" type="range" value="0.0")
-                                output(id="blur-o") 0
-                            div
-                                span contrast
-                                input(id="contrast" min="1.0" max="10.0" step="0.1" type="range" value="1.0")
-                                output(id="contrast-o") 1
-                            div
-                                span brightness
-                                input(id="brightness" min="0.0" max="10.0" step="0.01" type="range" value="1.0")
-                                output(id="brightness-o") 1
-                            div
-                                span saturate
-                                input(id="saturate" min="0.0" max="2.0" step="0.001" type="range" value="1.0")
-                                output(id="saturate-o") 1
-                            div
-                                span hue-rotate
-                                input(id="hue-rotate" min="0.0" max="360.0" step="0.1" type="range" value="0.0")
-                                output(id="hue-rotate-o") 0
-                            div
-                                span invert
-                                input(id="invert" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
-                                output(id="invert-o") 0
-                            div
-                                span opacity
-                                input(id="opacity" min="0.0" max="1.0" step="0.01" type="range" value="1.0")
-                                output(id="opacity-o") 1
-                            div
-                                span grayscale
-                                input(id="grayscale" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
-                                output(id="grayscale-o") 0
-                            div
-                                span sepia
-                                input(id="sepia" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
-                                output(id="sepia-o") 0
-                section
-                    p.title Installation
-                    p script
-                    pre.prettyprint.lang-html
-                        = '<!-- If you want to use the Custom Element with browser without not support Webcomponents. -->'
-                        br
-                        = '<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"></script>'
-                        br
-                        br
-                        = '<script src="rikaaa-img-extra.js"></script>'
-                    
-                section 
-                    p.title Usage
-                    p HTML
-                    pre.prettyprint.lang-html
-                        ='<rikaaa-img-extra data-src="your image path" data-alt="your image alt text" size="000x000"></rikaaa-img-extra>'
-                    p Event
-                    pre.prettyprint.lang-ja
-                        ='Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function(elem) {'
-                        br
-                        ='    elem.addEventListener("load", function() {'
-                        br
-                        ='        console.log("loaded");'
-                        br
-                        ='    });'
-                        br
-                        ='});'
-                        br
-                section 
-                    p.title Attributes
-                    dl.attributes
-                        dt.require 
-                            span data-src ="string"
-                        dd The parameter to set image path by text.
-                        dt.require 
-                            span size = "000x000"
-                        dd
-                            p The parameter to set the size of image by text. 
-                            p For example, indication of '640x480' in case of width 640 pixel and height 480 pixel.
-                        dt 
-                            span data-alt = "string"
-                        dd The parameter to set 'alt' of image by text.
-                        dt 
-                            span offset = "integer"
-                        dd 
-                            p The parameter to set the margin between bottom end of viewport and The Custom element.
-                            p In case, the margin of actual browser display shows smaller than the margin specified the image will be loaded. The unit is pixel. 
-                            p default value is 100.
-                        dt 
-                            span blur = "float"
-                        dd The parameter to set the condition of blur by floating decimal point.
-                        dt 
-                            span contrast = "float"
-                        dd The parameter to set the condition of contrast by floating decimal point. The minimum parameter is 1.0.
-                        dt 
-                            span brightness = "float"
-                        dd The parameter to set the condition of brightness by floating decimal point. The minimum parameter is 0.
-                        dt 
-                            span saturate = "float"
-                        dd The parameter to set the condition of saturate by floating decimal point. The minimum parameter is 0.
-                        dt 
-                            span hue-rotate = "float"
-                        dd The parameter to set the condition of hue rotattion by floating decimal point. The unit is degree. The range is 0 to 360.
-                        dt 
-                            span invert = "float"
-                        dd The parameter to set the condition of invert by floating decimal point. The range is 0 to 1.0.
-                        dt 
-                            span opacity = "float"
-                        dd The parameter to set the condition of opacity by floating decimal point. The range is 0 to 1.0.
-                        dt 
-                            span grayscale = "float"
-                        dd The parameter to set the condition of grayscale by floating decimal point. The range is 0 to 1.0.
-                        dt 
-                            span sepia = "float"
-                        dd The parameter to set the condition of sepia by floating decimal point. The maximum parameter is 1.0.
+                div.article-wrap
+                    section
+                        h1= '<rikaaa-img-extra>'
+                        p The Custom element to impliment lazy load and image filtering.
+                    section.maindemo
+                        h2.title demo
+                        ul.list
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_01.jpg" data-alt="lazytest" size="220x220")
+                                p original
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_02.jpg" data-alt="lazytest" size="220x220" blur="5")
+                                p blur
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_03.jpg" data-alt="lazytest" size="220x220" contrast="2")
+                                p contrast
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_04.jpg" data-alt="lazytest" size="220x220" brightness="10")
+                                p brightness
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_05.jpg" data-alt="lazytest" size="220x220" saturate="3")
+                                p saturate
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_06.jpg" data-alt="lazytest" size="220x220" hue-rotate="180")
+                                p hue-rotate
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_07.jpg" data-alt="lazytest" size="220x220" invert="1")
+                                p invert
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_08.jpg" data-alt="lazytest" size="220x220" opacity="0.5")
+                                p opacity
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_09.jpg" data-alt="lazytest" size="220x220" grayscale="1")
+                                p grayscale
+                            li.item
+                                rikaaa-img-extra(data-src="images/Lenna_10.jpg" data-alt="lazytest" size="220x220" sepia="1")
+                                p sepia
+                        div.sliders_demo
+                            rikaaa-img-extra(data-src="images/starry_night.jpg" data-alt="lazytest" size="752x600" id="s")
+                            div.sliders
+                                div
+                                    span blur
+                                    input(id="blur" min="0.0" max="100.0" step="0.1" type="range" value="0.0")
+                                    output(id="blur-o") 0
+                                div
+                                    span contrast
+                                    input(id="contrast" min="1.0" max="10.0" step="0.1" type="range" value="1.0")
+                                    output(id="contrast-o") 1
+                                div
+                                    span brightness
+                                    input(id="brightness" min="0.0" max="10.0" step="0.01" type="range" value="1.0")
+                                    output(id="brightness-o") 1
+                                div
+                                    span saturate
+                                    input(id="saturate" min="0.0" max="2.0" step="0.001" type="range" value="1.0")
+                                    output(id="saturate-o") 1
+                                div
+                                    span hue-rotate
+                                    input(id="hue-rotate" min="0.0" max="360.0" step="0.1" type="range" value="0.0")
+                                    output(id="hue-rotate-o") 0
+                                div
+                                    span invert
+                                    input(id="invert" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                    output(id="invert-o") 0
+                                div
+                                    span opacity
+                                    input(id="opacity" min="0.0" max="1.0" step="0.01" type="range" value="1.0")
+                                    output(id="opacity-o") 1
+                                div
+                                    span grayscale
+                                    input(id="grayscale" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                    output(id="grayscale-o") 0
+                                div
+                                    span sepia
+                                    input(id="sepia" min="0.0" max="1.0" step="0.01" type="range" value="0.0")
+                                    output(id="sepia-o") 0
+
+                    section
+                        h2.title Installation
+                        h3.sub-title script
+                        pre.prettyprint.lang-html
+                            = '<!-- If you want to use the Custom Element with browser without not support Webcomponents. -->'
+                            br
+                            = '<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"></script>'
+                            br
+                            br
+                            = '<script src="rikaaa-img-extra.js"></script>'
+
+                    section 
+                        h2.title Usage
+                        h3.sub-title HTML
+                        pre.prettyprint.lang-html
+                            ='<rikaaa-img-extra data-src="your image path" data-alt="your image alt text" size="000x000"></rikaaa-img-extra>'
+
+                    section
+                        h2.title Methods
+                        
+                        h3.sub-title rikaaaimgextra.setRoot(Element);
+                        p et a Element Node as View-port.This Element is equivalent with "root" parameter of Intersection Observer API.
+                        pre.prettyprint.lang-js
+                            ='var rikaaaimgextra = document.querySelector("rikaaa-img-extra");'
+                            br
+                            br
+                            ='rikaaaimgextra.setRoot(document.querySelector(".maindemo"));'
+                    section 
+                        h2.title Events
+
+                        section
+                            h3.sub-title addEventListener("load",callback)
+                            p The event will be triggered the custom element loaded.
+                            pre.prettyprint.lang-js
+                                ='Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function (elem) {'
+                                br
+                                ='    elem.addEventListener("load", function () {'
+                                br
+                                ='        console.log("load");'
+                                br
+                                ='    });'
+                                br
+                                ='});'
+
+                        section
+                            h3.sub-title addEventListener("loadImage",callback)
+                            p The event will be triggered image loaded.
+                            pre.prettyprint.lang-ja
+                                ='Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function(elem) {'
+                                br
+                                ='    elem.addEventListener("loadImage", function() {'
+                                br
+                                ='        console.log("image loaded");'
+                                br
+                                ='    });'
+                                br
+                                ='});'
+                                br
+
+                    section 
+                        h2.title Attributes
+
+                        table
+                            thead
+                                tr
+                                    th Attribute
+                                    th Required
+                                    th Description
+                            tbody
+                                tr
+                                    td data-src ="string"
+                                    td Required
+                                    td The parameter to set image path by text string.
+                                tr
+                                    td size = "000x000"
+                                    td Required
+                                    td The parameter to set the size of image by text string. For example, indication of '640x480' in case of width 640 pixel and height 480 pixel.
+                                tr
+                                    td data-alt = "string"
+                                    td
+                                    td he parameter to set 'alt' of image by text string.
+                                tr
+                                    td data-alt = "string"
+                                    td
+                                    td The parameter to set 'alt' of image by text string.
+                                tr
+                                    td loadtiming = "string"
+                                    td
+                                    td The parameter to set timing of image loading by text string. This parameter is equivalent with "rootMargin" parameter of Intersection Observer API.The default value is "100px 0px 100px 0px". The unit is pixel or percentage.
+                                tr
+                                    td blur = "float"
+                                    td
+                                    td The parameter to set the condition of blur by floating decimal point.
+                                tr
+                                    td contrast = "float"
+                                    td
+                                    td The parameter to set the condition of contrast by floating decimal point. The minimum parameter is 1.0.
+                                tr
+                                    td brightness = "float"
+                                    td
+                                    td The parameter to set the condition of brightness by floating decimal point. The minimum parameter is 0.
+                                tr
+                                    td saturate = "float"
+                                    td
+                                    td The parameter to set the condition of saturate by floating decimal point. The minimum parameter is 0.
+                                tr
+                                    td hue-rotate = "float"
+                                    td
+                                    td The parameter to set the condition of hue rotattion by floating decimal point. The unit is degree. The range is 0 to 360.
+                                tr
+                                    td invert = "float"
+                                    td
+                                    td The parameter to set the condition of invert by floating decimal point. The range is 0 to 1.0.
+                                tr
+                                    td opacity = "float"
+                                    td
+                                    td The parameter to set the condition of opacity by floating decimal point. The range is 0 to 1.0.
+                                tr
+                                    td grayscale = "float"
+                                    td
+                                    td The parameter to set the condition of grayscale by floating decimal point. The range is 0 to 1.0.
+                                tr
+                                    td sepia = "float"
+                                    td
+                                    td The parameter to set the condition of sepia by floating decimal point. The maximum parameter is 1.0.
                     

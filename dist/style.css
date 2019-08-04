@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -307,93 +308,132 @@ template {
 [hidden] {
   display: none; }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./images/bg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7; }
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0; }
+
+ul {
+  margin: 0;
+  padding: 0; }
+  ul li {
+    list-style: none; }
+
+body,
+html {
+  font-size: 100%;
+  line-height: 1.4;
+  color: white;
+  background-color: black;
+  font-family: 'Hiragino Kaku Gothic ProN'; }
+
 .wp {
-  min-width: 680px;
-  padding: 20px; }
-  .wp * {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
-  .wp .bg {
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("./images/bg.png");
-    background-size: cover; }
-  .wp h1,
-  .wp h2,
-  .wp h3,
-  .wp h4 {
-    margin: 0; }
-  .wp h1,
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  word-break: break-all; }
+  .wp h1 {
+    font-size: 2rem; }
   .wp h2 {
-    color: white; }
-  .wp header h2 {
-    font-size: 30px; }
+    font-size: 1.625rem; }
+  .wp h3 {
+    font-size: 1rem; }
+  .wp > header,
+  .wp article {
+    position: relative; }
+  .wp header {
+    height: 60px; }
+    .wp header > * {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%); }
   .wp article {
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white; }
-    .wp article .maindemo .list {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: row;
-              flex-direction: row;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap; }
-      .wp article .maindemo .list .item {
-        width: 33.3333%; }
-    .wp article .maindemo .sliders {
-      margin-top: 20px; }
-      .wp article .maindemo .sliders span {
-        display: inline-block;
-        width: 100px;
-        margin-right: 10px; }
-      .wp article .maindemo .sliders input[type=range] {
-        padding: 0;
-        width: 300px; }
-      .wp article .maindemo .sliders output {
-        margin-left: 10px;
-        width: 100px; }
-    .wp article > section {
-      max-width: 1068px;
-      margin: 0 auto;
-      margin-bottom: 20px; }
-      .wp article > section .title {
-        font-weight: bold;
-        font-size: 30px;
-        margin: 0;
-        margin-bottom: 30px;
-        border-width: 0 0 1px 0;
-        border-style: solid;
-        border-color: white; }
-    .wp article .attributes {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.5; }
-      .wp article .attributes dt {
-        display: inline-block;
-        float: left;
-        font-weight: bold;
-        color: #2de62d; }
-        .wp article .attributes dt span {
+    background-color: rgba(0, 0, 0, 0.7); }
+    .wp article .article-wrap {
+      max-width: 1160px;
+      margin: 0 auto; }
+      .wp article .article-wrap section {
+        font-size: 0.75rem;
+        margin-bottom: 30px; }
+        .wp article .article-wrap section:last-child {
+          margin-bottom: 0; }
+        .wp article .article-wrap section section {
+          margin-bottom: 15px; }
+          .wp article .article-wrap section section:last-child {
+            margin-bottom: 0; }
+        .wp article .article-wrap section .list {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+              flex-wrap: wrap; }
+          .wp article .article-wrap section .list .item {
+            width: 33%; }
+        .wp article .article-wrap section pre.prettyprint {
+          width: 100%;
+          border-radius: 0;
+          margin: 0;
+          margin-bottom: 5px; }
+          .wp article .article-wrap section pre.prettyprint:last-child {
+            margin-bottom: 0; }
+        .wp article .article-wrap section .title {
+          margin-bottom: 30px;
+          border-bottom: 1px solid white; }
+        .wp article .article-wrap section .sub-title {
+          border-left: 2px solid white;
+          margin-bottom: 10px; }
+          .wp article .article-wrap section .sub-title:before {
+            content: "・";
+            color: #66b9c8; }
+          .wp article .article-wrap section .sub-title::last-child {
+            margin-bottom: 0; }
+        .wp article .article-wrap section table {
+          table-layout: fixed;
+          width: 100%;
+          margin-bottom: 5px; }
+          .wp article .article-wrap section table:last-child {
+            margin-bottom: 0; }
+          .wp article .article-wrap section table thead {
+            font-weight: bold;
+            color: white;
+            background-color: black; }
+            .wp article .article-wrap section table thead td {
+              padding: 5px; }
+            .wp article .article-wrap section table thead .attr {
+              min-width: 220px; }
+          .wp article .article-wrap section table tbody td {
+            border: 1px solid black;
+            padding: 5px;
+            color: black;
+            background-color: white; }
+            .wp article .article-wrap section table tbody td:first-child {
+              color: #32cd32;
+              font-weight: bold; }
+            .wp article .article-wrap section table tbody td p {
+              margin: 0; }
+        .wp article .article-wrap section li {
+          margin-bottom: 40px; }
+          .wp article .article-wrap section li:last-child {
+            margin-bottom: 0; }
+        .wp article .article-wrap section .sliders span {
           display: inline-block;
-          width: 155px; }
-        .wp article .attributes dt.require::after {
-          content: "require";
-          display: inline-block;
-          background-color: white;
-          margin-left: 5px;
-          border-radius: 2px;
-          padding: 0 5px;
-          color: red; }
-      .wp article .attributes dd {
-        margin-left: 250px;
-        margin-bottom: 20px; }
-        .wp article .attributes dd p {
-          margin: 0; }
+          min-width: 100px; }
