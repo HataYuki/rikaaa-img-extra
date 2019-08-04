@@ -2,7 +2,7 @@
  * @license
  * rikaaa-img-extra.js
  *
- * Generated : 2019-07-21
+ * Generated : 2019-08-04
  * Version : 1.0.3
  * Author : rikaaa.org | Yuki Hata
  * Url : http://rikaaa.org
@@ -67,8 +67,13 @@
     });
 
     Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function (elem) {
+      elem.addEventListener("loadImage", function () {
+        console.log("image loaded");
+      });
+    });
+    Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function (elem) {
       elem.addEventListener("load", function () {
-        console.log("loaded");
+        console.log("load");
       });
     });
   });
