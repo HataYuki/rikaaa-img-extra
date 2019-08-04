@@ -15,8 +15,17 @@ ready(() => {
     });
 
     Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function(elem) {
-        elem.addEventListener("load", function() {
-           console.log("loaded");
+        elem.addEventListener("loadImage", function() {
+           console.log("image loaded");
         });
     });
+
+    Array.from(document.querySelectorAll("rikaaa-img-extra")).forEach(function (elem) {
+        elem.addEventListener("load", function () {
+            console.log("load");
+        });
+    });
+
+    
+
 });

@@ -55,12 +55,24 @@ export default class rikaaaimgextra extends HTMLElement {
         image.setAttribute('filter', `url(#${newId})`);
         super();
 
+
         if (window.ShadyCSS) ShadyCSS.prepareTemplate(template, 'rikaaa-img-extra');
         if (window.ShadyCSS) ShadyCSS.styleElement(this);
         this.attachShadow({
             mode: 'open'
         });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+
+        if (!window.IntersectionObserver && !window.WcRikaaaIntersectionObserver) {
+            Object.defineProperty(window, 'WcRikaaaIntersectionObserver', {
+                value: rikaaaIntersectionObserver
+            });
+        }
+        this.intersectionobserver = window.IntersectionObserver || window.WcRikaaaIntersectionObserver;
+
+
+        this.load = Onebang(this.loadImage.bind(this));
     }
     connectedCallback() {
         this.filters = [];
@@ -79,21 +91,15 @@ export default class rikaaaimgextra extends HTMLElement {
             return Object.assign(a, result);
         }, {});
 
+
         this.wp = this.shadowRoot.querySelector('.rikaaa-img-extra-wp');
         this.placeholder_container = this.shadowRoot.querySelector('.placeholder_container');
         this.spacer = this.shadowRoot.querySelector('.spacer');
         this.svg = this.shadowRoot.querySelector('svg');
         this.svgImage = this.shadowRoot.querySelector('image');
         this.svgspacer = this.shadowRoot.querySelector('.svg_spacer');
-
-        if (!window.IntersectionObserver && !window.WcRikaaaIntersectionObserver) {
-             Object.defineProperty(window, 'WcRikaaaIntersectionObserver', {
-                 value: rikaaaIntersectionObserver
-             });
-         }
-        const intersectionobserver = window.IntersectionObserver || window.WcRikaaaIntersectionObserver;
-
-        if (this.offset === undefined) this.offset = 100;
+        this.loadTiming = '100px 0px 100px 0px'
+        
         
         const placeHolder = () => {
             this.placeholder();
@@ -101,25 +107,15 @@ export default class rikaaaimgextra extends HTMLElement {
         const addPlaceHolder_onece = Onebang(placeHolder);
         addPlaceHolder_onece();
 
-        // element entry viewport
-        const entry = () => {
-            this.entry();
-        };
-        const entry_onebang = Onebang(entry);
-        this.ovserver = new intersectionobserver(e => {
-            if (e[0].isIntersecting) entry_onebang();
-        }, {
-            rootMargin: `0px 0px ${this.offset}px 0px`,
-        });
-        this.ovserver.observe(this);
 
-        
+        this.prepareloadImage(null, this.loadTiming);
 
+
+        this.dispatchEvent(new CustomEvent('load'));
     }
     disconnectedCallback() {
-        this.ovserver.disconnect(this);
-        const child = this.childNodes;
-        if (child) Array.from(child).forEach(e => this.removeChild(e));
+        this.readyLoadImage.unobserve(this);
+        this.loadImage.disconnect();
     }
     static get observedAttributes() {
         return [
@@ -132,7 +128,7 @@ export default class rikaaaimgextra extends HTMLElement {
             'opacity',
             'grayscale',
             'sepia',
-            'offset',
+            'loadtiming',
         ];
     }
     attributeChangedCallback(attr, oldval, newval) {
@@ -151,12 +147,33 @@ export default class rikaaaimgextra extends HTMLElement {
         if (attr === 'opacity') this.opacity = newval;
         if (attr === 'grayscale') this.grayscale = newval;
         if (attr === 'sepia') this.sepia = newval;
-        if (attr === 'offset') this.offset = newval;
+        if (attr === 'loadtiming') this.loadTiming = newval;
 
         if (this.isSafari) this.shadowRoot.querySelector('.img_container').style.filter = this.filters.toString().replace(/,/g, ' ');
     }
     arraytomatrixval(matrixarray) {
         return matrixarray.reduce((acc, val) => acc.concat(val), []).toString().replace(/,/g, ' ');
+    }
+    prepareloadImage(root, rootMargin) {
+        if (this.readyLoadImage) {
+            this.readyLoadImage.unobserve(this);
+            this.readyLoadImage.disconnect();
+        }
+
+        const option = {};
+        if (root) option.root = root;
+        if (rootMargin) option.rootMargin = rootMargin;
+
+
+        this.readyLoadImage = new this.intersectionobserver(entries => {
+            if (entries[0].isIntersecting) this.load();
+        }, option);
+
+        this.readyLoadImage.observe(this);
+        
+    }
+    setRoot(root) {
+        this.prepareloadImage(root, this.loadTiming);
     }
     set blur(n) {
         if (!this.isSafari) this.svg.querySelector('feGaussianBlur').setAttribute('stdDeviation', n);
@@ -382,7 +399,7 @@ export default class rikaaaimgextra extends HTMLElement {
         this.placeholderNode = imgnode;
         this.appendChild(imgnode);
     }
-    entry() {
+    loadImage() {
         // create img element
         const imgnode = document.createElement('img');
         this.img = imgnode;
@@ -407,7 +424,7 @@ export default class rikaaaimgextra extends HTMLElement {
             }
         }
         imgnode.addEventListener('load', render);
-        this.dispatchEvent(new CustomEvent('load'));
+        this.dispatchEvent(new CustomEvent('loadImage'));
     }
 }
 
